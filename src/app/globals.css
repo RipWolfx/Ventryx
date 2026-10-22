@@ -1,0 +1,465 @@
+@import "tailwindcss";
+
+:root {
+  --noche: #230c42;
+  --purpura: #4c0dbf;
+  --ventryx: #7020ed;
+  --electrico: #963cff;
+  --lavanda: #c77dff;
+  --lila: #ebd5ff;
+  --fondo: #f7f7f5;
+  --blanco: #ffffff;
+  --texto: #230c42;
+  --texto-suave: #5b4a75;
+  --borde: #ebe3f7;
+  --borde-suave: #f3ebff;
+  --muted: #faf7ff;
+  --hover: #f3ebff;
+  --gradiente-primario: linear-gradient(145deg, #4c0dbf 0%, #7020ed 48%, #c77dff 100%);
+  --gradiente-panel: linear-gradient(160deg, #4c0dbf 0%, #230c42 100%);
+  --sombra-card: 0 24px 60px rgba(35, 12, 66, 0.18);
+  --sombra-boton: 0 12px 28px rgba(112, 32, 237, 0.35);
+  --sombra-menu: 0 18px 40px rgba(35, 12, 66, 0.14);
+}
+
+html.dark {
+  --noche: #f8f4ff;
+  --purpura: #c4b5fd;
+  --ventryx: #e9d5ff;
+  --electrico: #c4b5fd;
+  --lavanda: #c4b5fd;
+  --lila: #3b2d52;
+  --fondo: #0e0818;
+  --blanco: #1c142c;
+  --texto: #f8f4ff;
+  --texto-suave: #e4d8f5;
+  --borde: #4a3d63;
+  --borde-suave: #554870;
+  --muted: #2a1f3d;
+  --hover: #362a4e;
+  --sombra-card: 0 24px 60px rgba(0, 0, 0, 0.45);
+  --sombra-boton: 0 12px 28px rgba(124, 58, 237, 0.35);
+  --sombra-menu: 0 18px 40px rgba(0, 0, 0, 0.5);
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme inline {
+  --color-noche: var(--noche);
+  --color-purpura: var(--purpura);
+  --color-ventryx: var(--ventryx);
+  --color-electrico: var(--electrico);
+  --color-lavanda: var(--lavanda);
+  --color-lila: var(--lila);
+  --color-fondo: var(--fondo);
+  --color-blanco: var(--blanco);
+  --color-texto: var(--texto);
+  --color-texto-suave: var(--texto-suave);
+  --color-borde: var(--borde);
+  --font-sans: var(--font-outfit);
+  --font-display: var(--font-syne);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--fondo);
+  color: var(--texto);
+  font-family: var(--font-outfit), system-ui, sans-serif;
+}
+
+@keyframes login-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes soft-glow {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 0.75;
+  }
+}
+
+.login-shell {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 55% 45% at 12% 18%, rgba(150, 60, 255, 0.22), transparent 60%),
+    radial-gradient(ellipse 50% 40% at 90% 85%, rgba(112, 32, 237, 0.16), transparent 55%),
+    var(--fondo);
+}
+
+.login-shell::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(rgba(76, 13, 191, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(76, 13, 191, 0.05) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 75%);
+}
+
+.login-card {
+  animation: login-rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  box-shadow: var(--sombra-card);
+  /* Login siempre legible: no hereda tokens de tema oscuro en el formulario */
+}
+
+.login-form-pane {
+  --noche: #230c42;
+  --texto: #230c42;
+  --texto-suave: #5b4a75;
+  --ventryx: #7020ed;
+  --lavanda: #c77dff;
+  background: #ffffff;
+  color: #230c42;
+}
+
+.login-glow {
+  animation: soft-glow 6s ease-in-out infinite;
+}
+
+.login-input {
+  width: 100%;
+  border: none;
+  border-bottom: 1.5px solid #d8c8ef;
+  background: transparent;
+  padding: 0.65rem 0 0.55rem;
+  color: #230c42;
+  caret-color: #7020ed;
+  font-size: 0.98rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.login-input::placeholder {
+  color: #a894c4;
+}
+
+.login-input:focus {
+  border-bottom-color: #7020ed;
+}
+
+.login-btn {
+  box-shadow: var(--sombra-boton);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.login-btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 34px rgba(112, 32, 237, 0.42);
+}
+
+.login-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.feature-item {
+  transition: transform 0.25s ease;
+}
+
+.feature-item:hover {
+  transform: translateX(4px);
+}
+
+.app-input {
+  width: 100%;
+  border: 1.5px solid var(--borde);
+  border-radius: 18px;
+  background: var(--blanco);
+  padding: 0.75rem 1rem;
+  color: var(--noche);
+  font-size: 0.95rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.app-input:focus {
+  border-color: var(--lavanda);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--lavanda) 25%, transparent);
+}
+
+.perfil-input {
+  width: 100%;
+  border: 1.5px solid var(--borde);
+  border-radius: 14px;
+  background: var(--blanco);
+  padding: 0.55rem 0.75rem;
+  color: var(--noche);
+  font-size: 0.875rem;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.perfil-input:focus {
+  border-color: var(--ventryx);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--ventryx) 20%, transparent);
+}
+
+.perfil-input:disabled {
+  background: var(--muted);
+  color: var(--texto-suave);
+  cursor: not-allowed;
+}
+
+.perfil-glow {
+  isolation: isolate;
+  background-color: var(--fondo);
+  background-image:
+    radial-gradient(ellipse 55% 45% at 12% 8%, rgba(168, 120, 255, 0.22), transparent 58%),
+    radial-gradient(ellipse 50% 40% at 88% 12%, rgba(255, 214, 120, 0.18), transparent 55%),
+    radial-gradient(ellipse 45% 35% at 55% 92%, rgba(186, 150, 255, 0.12), transparent 60%);
+}
+
+/*
+  Dark mode: remapea utilidades hardcodeadas de los módulos (bg-white, #111827, etc.)
+  para que tarjetas, tablas e inputs hereden el tema.
+*/
+html.dark .bg-white,
+html.dark .bg-\[\#fff\],
+html.dark .bg-\[\#ffffff\],
+html.dark .bg-\[\#fafafa\],
+html.dark .bg-\[\#f9fafb\],
+html.dark .bg-\[\#f8fafc\],
+html.dark .bg-\[\#f8f5fc\],
+html.dark .bg-\[\#f8f4ff\],
+html.dark .bg-\[\#f7f2ff\],
+html.dark .bg-\[\#f3f4f6\],
+html.dark .bg-\[\#f1f5f9\],
+html.dark .bg-\[\#eff6ff\],
+html.dark .bg-\[\#faf7ff\],
+html.dark .hover\:bg-white:hover,
+html.dark .hover\:bg-\[\#f9fafb\]:hover,
+html.dark .hover\:bg-\[\#f3f4f6\]:hover,
+html.dark .hover\:bg-\[\#f8f4ff\]:hover,
+html.dark .hover\:bg-\[\#eff6ff\]:hover,
+html.dark .focus\:bg-white:focus {
+  background-color: var(--blanco) !important;
+}
+
+html.dark .bg-\[\#f3e8ff\],
+html.dark .bg-\[\#ede9fe\],
+html.dark .bg-\[\#f3ebff\] {
+  background-color: var(--hover) !important;
+}
+
+html.dark .text-\[\#111827\],
+html.dark .text-\[\#1c1b19\],
+html.dark .text-\[\#1f2937\],
+html.dark .text-\[\#374151\],
+html.dark .text-\[\#4b5563\],
+html.dark .hover\:text-\[\#111827\]:hover,
+html.dark .hover\:text-\[\#1d4ed8\]:hover {
+  color: var(--noche) !important;
+}
+
+html.dark .text-\[\#6b7280\],
+html.dark .text-\[\#5c5852\],
+html.dark .text-\[\#8a8680\],
+html.dark .text-\[\#9ca3af\],
+html.dark .text-\[\#a894c4\],
+html.dark .placeholder\:text-\[\#9ca3af\]::placeholder,
+html.dark .placeholder\:text-\[\#a894c4\]::placeholder {
+  color: var(--texto-suave) !important;
+}
+
+html.dark .border-\[\#e5e7eb\],
+html.dark .border-\[\#eceff3\],
+html.dark .border-\[\#f1f5f9\],
+html.dark .border-\[\#f3f4f6\],
+html.dark .border-\[\#d1d5db\],
+html.dark .border-\[\#d8c8ef\],
+html.dark .border-\[\#e4d8f5\],
+html.dark .border-\[\#ebe3f7\],
+html.dark .hover\:border-\[\#c4b5fd\]:hover,
+html.dark .focus\:border-\[\#a78bfa\]:focus,
+html.dark .focus\:border-\[\#714B67\]:focus {
+  border-color: var(--borde) !important;
+}
+
+html.dark .divide-\[\#f3f4f6\] > :not([hidden]) ~ :not([hidden]),
+html.dark .divide-x > :not([hidden]) ~ :not([hidden]),
+html.dark .border-t.border-\[\#f3f4f6\],
+html.dark .border-b.border-\[\#f1f5f9\],
+html.dark .border-b.border-\[\#f3f4f6\] {
+  border-color: var(--borde) !important;
+}
+
+html.dark .shadow-\[0_10px_30px_rgba\(15\,23\,42\,0\.04\)\],
+html.dark .shadow-\[0_8px_24px_rgba\(15\,23\,42\,0\.03\)\],
+html.dark .shadow-\[0_12px_28px_rgba\(15\,23\,42\,0\.12\)\],
+html.dark .shadow-\[0_24px_80px_rgba\(15\,23\,42\,0\.25\)\],
+html.dark .shadow-sm {
+  box-shadow: var(--sombra-card) !important;
+}
+
+html.dark .ring-\[\#ede9fe\],
+html.dark .focus\:ring-\[\#ede9fe\]:focus,
+html.dark .focus\:ring-\[\#714B67\]\/15:focus {
+  --tw-ring-color: color-mix(in srgb, var(--lavanda) 35%, transparent) !important;
+}
+
+html.dark .bg-\[\#0f172a\]\/40,
+html.dark .bg-\[\#0f172a\]\/40 {
+  background-color: rgb(0 0 0 / 0.55) !important;
+}
+
+/* Status pills: un poco más oscuros para no “quemar” en dark */
+html.dark .bg-\[\#ecfdf5\] {
+  background-color: color-mix(in srgb, #047857 22%, var(--blanco)) !important;
+}
+html.dark .bg-\[\#fef2f2\] {
+  background-color: color-mix(in srgb, #b91c1c 22%, var(--blanco)) !important;
+}
+html.dark .bg-\[\#fff7ed\] {
+  background-color: color-mix(in srgb, #c2410c 22%, var(--blanco)) !important;
+}
+
+html.dark .bg-\[\#f0fdf4\],
+html.dark .bg-\[\#ecfdf5\] {
+  background-color: color-mix(in srgb, #16a34a 18%, var(--blanco)) !important;
+}
+
+html.dark .bg-\[\#fafafa\]\/95,
+html.dark .bg-\[\#fafafa\]\/90 {
+  background-color: color-mix(in srgb, var(--blanco) 95%, transparent) !important;
+}
+
+/* Inputs nativos + select: contraste garantizado en dark */
+html.dark input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]),
+html.dark textarea,
+html.dark select {
+  background-color: var(--muted) !important;
+  color: var(--noche) !important;
+  border-color: var(--borde) !important;
+  caret-color: var(--lavanda);
+  -webkit-text-fill-color: var(--noche);
+}
+html.dark input::placeholder,
+html.dark textarea::placeholder {
+  color: var(--texto-suave) !important;
+  -webkit-text-fill-color: var(--texto-suave);
+  opacity: 1;
+}
+html.dark input:-webkit-autofill,
+html.dark input:-webkit-autofill:hover,
+html.dark input:-webkit-autofill:focus,
+html.dark textarea:-webkit-autofill {
+  -webkit-text-fill-color: var(--noche) !important;
+  caret-color: var(--lavanda);
+  box-shadow: 0 0 0 1000px var(--muted) inset !important;
+  transition: background-color 99999s ease-out;
+}
+
+/* Badges de estado: texto legible en dark */
+html.dark .text-\[\#047857\],
+html.dark .text-\[\#065f46\] {
+  color: #6ee7b7 !important;
+}
+html.dark .text-\[\#b91c1c\],
+html.dark .text-\[\#991b1b\] {
+  color: #fca5a5 !important;
+}
+html.dark .text-\[\#c2410c\],
+html.dark .text-\[\#9a3412\] {
+  color: #fdba74 !important;
+}
+html.dark .text-\[\#6d28d9\],
+html.dark .text-\[\#5b21b6\],
+html.dark .text-\[\#7c3aed\] {
+  color: #d8b4fe !important;
+}
+
+/* Perfil / acentos pastel legibles en dark */
+html.dark .bg-\[\#fff4e8\] {
+  background-color: color-mix(in srgb, #c2410c 18%, var(--blanco)) !important;
+}
+html.dark .bg-\[\#ffeceb\] {
+  background-color: color-mix(in srgb, #b91c1c 18%, var(--blanco)) !important;
+}
+html.dark .bg-\[\#eaf8ef\] {
+  background-color: color-mix(in srgb, #047857 18%, var(--blanco)) !important;
+}
+html.dark .text-\[\#b86b2a\] {
+  color: #fdba74 !important;
+}
+html.dark .text-\[\#b04a42\] {
+  color: #fca5a5 !important;
+}
+html.dark .text-\[\#2f7a4f\] {
+  color: #6ee7b7 !important;
+}
+html.dark .text-\[\#2563eb\] {
+  color: #93c5fd !important;
+}
+
+/* Login: mantener panel claro legible aunque el sistema esté en dark */
+html.dark .login-shell .login-card,
+html.dark .login-shell .login-form-pane {
+  background-color: #ffffff !important;
+  color: #230c42 !important;
+}
+html.dark .login-shell .login-form-pane h2,
+html.dark .login-shell .login-form-pane label {
+  color: #230c42 !important;
+}
+html.dark .login-shell .login-form-pane label {
+  color: #5b4a75 !important;
+}
+
+@media (max-width: 767px) {
+  .login-card {
+    border-radius: 22px;
+  }
+}
+
+/* Thermal voucher print: hide chrome, show ticket only */
+@media print {
+  body * {
+    visibility: hidden !important;
+  }
+
+  #voucher-print-area,
+  #voucher-print-area * {
+    visibility: visible !important;
+  }
+
+  #voucher-print-area {
+    position: absolute !important;
+    left: 0 !important;
+    top: 0 !important;
+    width: 80mm !important;
+    max-width: 80mm !important;
+    margin: 0 !important;
+    padding: 4mm !important;
+    box-shadow: none !important;
+    background: #fff !important;
+  }
+
+  .print\:hidden {
+    display: none !important;
+  }
+}
